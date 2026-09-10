@@ -108,8 +108,18 @@
    with ordinary alpha blending - never additively, and never by per-channel
    maximum, because both of those turn a red sprite crossing a cyan one into
    white.  Blending interpolates instead, so overlapping spectral light stays
-   inside the spectrum.  Checked over the whole loop with the beams and rings
-   suppressed: the space alone produces zero white pixels.
+   inside the spectrum.  The white beams and the eye's three cone responses
+   are separate actors and do use additive light - the responses at 600, 555
+   and 445 nm are three hues that would sum to white if they crossed, so that
+   they do not cross is a fact about the drawing and not an assumption.
+   Checked twice over the whole 336-second loop, 671 frames each:
+     the space alone, beams and rings suppressed        0 white pixels
+     everything except the three white beams            0 white pixels
+   The second is the one that matters: with the spectral space, the far
+   field, the disc, the world, the iris, the three cone responses, the rings
+   and the horizon all drawing, and only the MUB beams removed, nothing on
+   screen ever reaches white.  White is the bases, and the check no longer
+   takes that on trust.
 
    No words.  No numerals.  One fixed camera.
    ========================================================================== */
