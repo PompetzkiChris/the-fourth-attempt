@@ -1,0 +1,746 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="author" content="Christopher Pompetzki">
+<meta name="description" content="The Laws of Annihilation enacted as one cycle. M = [[1,2,3],[2,4,7],[2,4,7]] has rank 2 and kernel span(-2,1,0); the fourth basis needs three directions and the kernel eats one, so 3 = 2 + 1 and it cannot close. Hue is the kernel fraction, brightness is the surviving amplitude, and the scale ladder runs thirty-three decades from the observable universe to a foveal cone. The frame at 336 seconds is the frame at zero, pixel for pixel.">
+<title>The Fourth Attempt</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{background:#050508;height:100%;overflow:hidden}
+  canvas{display:block;width:100vw;height:100vh}
+</style>
+</head>
+<body>
+<canvas id="f"></canvas>
+<script>
+"use strict";
+/* ==========================================================================
+   THE FOURTH ATTEMPT
+   The Laws of Annihilation, enacted.  One axiom, one aeon, one loop.
+
+       dim V  =  rank + nullity
+       the aeon  =  rebirth + annihilation  --  exchanged through the pulse
+
+   LAW VIII.  Black holes are where the universe performs its unbiasing.
+   The origin is that black hole.  Three mutually unbiased bases proceed out
+   of it as white light: together, at one magnitude, in three directions
+   that span.  They differ in direction and in nothing else.
+   There is one engine, and it is rank-nullity.  It is not three of anything.
+   It runs once, on the whole space, and what it produces is three bases and
+   no fourth.
+
+   LAW X, THE LOCK.  At composite dimension the complementary structure
+   cannot complete.  The fourth basis needs three directions; the kernel eats
+   one; two survive.  The certified elimination at d = 6:
+       psi = [[1,2,3],[2,4,7]]   rank 2, nullity 1, candidate space dim 3,
+       required 3.   Lift by repeating the row (it changes nothing):
+       M = [[1,2,3],[2,4,7],[2,4,7]],   det M = 0, rank 2, ker = span(-2,1,0).
+   The unimodular candidate basis, determinant -1:
+       ( 7, 0,-2)  ->  ( 1, 0, 0)      survives
+       (-3, 0, 1)  ->  ( 0, 1, 1)      survives
+       (-2, 1, 0)  ->  ( 0, 0, 0)      EATEN
+   Two stand where three are required.  The fourth basis cannot exist.
+       rank 2  +  nullity 1  =  3.     Law I is never violated: the total
+   is untouched, the entry only moves from one column to the other.
+
+   LAW II.  A lawful flow moves dimension from rank to nullity, and the
+   volume element dies exactly at the boundary and never before it.  The
+   flow is A(t) = (1-t) I + t M.  Since M has eigenvalue 0 on the kernel,
+   det A(t) carries a factor (1-t): it is strictly positive on the whole
+   interior and reaches zero exactly at t = 1.  Every frame computes it.
+
+   LAW IV, THE GHOST.  What has been annihilated cannot be restored.  The
+   eaten direction does not come back.  It stays in the black hole.
+
+   LAW IX, REBIRTH.  Crossing the boundary is not evolution, it is
+   redescription.  The attempt to form the fourth collapses the stage; the
+   residue rings once; the pulse re-declares scale on the dead direction and
+   the next aeon opens at b = 0 by fiat, exactly as this one did.  That is
+   the loop.  The film does not end; it pulses.
+   It is one cycle, not a sequence that repeats: the frame at t = LOOP is the
+   frame at t = 0, pixel for pixel.  There is no veil and no fade, because
+   there is nothing to cut between.  The ladder climbs back to the rung it
+   started on, the origin comes home from the eye, the flow unwinds to zero
+   inside the hole where it cannot be watched, and the breath divides the
+   loop a whole number of times - 336 seconds, 56 breaths.  Checked: every
+   one of the 504,000 pixels agrees, maximum channel difference 0.
+
+   EXACT ARITHMETIC.  The space is Z^3.  M is an integer matrix.  A(t) at
+   rational t has rational entries and det A(t) is computed from them every
+   frame.  All three candidates and all three images are integer vectors,
+   drawn at their exact positions.  Nothing is fitted.
+
+   COLOUR IS EXACT PHYSICS, IN TWO CHANNELS THAT DO NOT MIX.
+   HUE says which part of a point dies.  It is the kernel fraction,
+       kf(v) = | v . k | / | v |,     k = (-2,1,0)/sqrt5,
+   a property of the map, fixed for the whole loop:
+       lambda(v) = 700 - 300 kf(v)  nanometres,
+       kf = 0  ->  700 nm, red     the point is wholly in the surviving image
+       kf = 1  ->  400 nm, violet  the point is wholly in the kernel.
+   BRIGHTNESS says how much of it is left.  Under A(t) the kernel part is
+   multiplied by (1-t) and the image part is only carried, so
+       live(v,t) = sqrt( 1 - kf^2 + kf^2 (1-t)^2 ),
+   which is 1 for every point at t = 0, stays 1 for a point wholly in the
+   image, and reaches 0 exactly at t = 1 for a point wholly in the kernel.
+   So annihilation is extinction of amplitude, not a walk out of the visible
+   band: the doomed points are violet from the first frame, and what the flow
+   takes from them is their light.  Nothing is normalised by hand - the
+   stretching of the image part is a change of units, Law IX, and does not
+   enter brightness at all.
+   Wavelength becomes light by the standard itself: the CIE 1931 2-degree
+   observer tabulated below, the exact IEC 61966-2-1 matrix to linear sRGB,
+   the sRGB transfer function.  Monochromatic colours lie outside the sRGB
+   gamut; the standard escape is to desaturate toward white, forbidden here,
+   so negatives are clipped and the result normalised: the hue of the gamut
+   boundary survives and no wavelength can render white.
+
+   WHITE IS THE MUBs.  Newton: white is every wavelength at once, in equal
+   measure.  Einstein: light comes in quanta, so equal measure is a
+   probability distribution over states, and the flat one is maximum
+   entropy.  Two bases are mutually unbiased exactly when every overlap is
+   1/d - the flat distribution.  A mutually unbiased basis is the
+   white-light condition of a measurement.  Three burn.  The fourth never
+   lights, and the film shows why: one of the three directions it needs is
+   eaten.  Nothing else on screen is ever white.  The space is composited
+   with ordinary alpha blending - never additively, and never by per-channel
+   maximum, because both of those turn a red sprite crossing a cyan one into
+   white.  Blending interpolates instead, so overlapping spectral light stays
+   inside the spectrum.  Checked over the whole loop with the beams and rings
+   suppressed: the space alone produces zero white pixels.
+
+   No words.  No numerals.  One fixed camera.
+   ========================================================================== */
+
+const INK="#050508", GREY="#6E6A78", WHITE="#FFFFFF";
+const TAU=Math.PI*2;
+const clamp=(v,a,b)=>v<a?a:v>b?b:v;
+const uu=(t,a,b)=>clamp((t-a)/(b-a),0,1);
+const eio=u=>u<.5?4*u*u*u:1-Math.pow(-2*u+2,3)/2;
+const eo3=u=>1-Math.pow(1-u,3);
+const pulse=u=>Math.sin(Math.PI*clamp(u,0,1));
+function env(t,a,b,fin,fout){if(t<=a||t>=b)return 0;return Math.min(1,(t-a)/fin,(b-t)/fout);}
+const nrm=a=>{const l=Math.hypot(a[0],a[1],a[2])||1;return[a[0]/l,a[1]/l,a[2]/l];};
+const sub=(a,b)=>[a[0]-b[0],a[1]-b[1],a[2]-b[2]];
+const add=(a,b)=>[a[0]+b[0],a[1]+b[1],a[2]+b[2]];
+const scl=(a,s)=>[a[0]*s,a[1]*s,a[2]*s];
+const dot=(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2];
+const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+
+/* ---------------- the certified elimination, exactly ---------------- */
+const M=[[1,2,3],[2,4,7],[2,4,7]];                  // psi lifted; det 0, rank 2
+const Mv=v=>[M[0][0]*v[0]+M[0][1]*v[1]+M[0][2]*v[2],
+             M[1][0]*v[0]+M[1][1]*v[1]+M[1][2]*v[2],
+             M[2][0]*v[0]+M[2][1]*v[1]+M[2][2]*v[2]];
+const At=(t,v)=>{const w=Mv(v);return[(1-t)*v[0]+t*w[0],(1-t)*v[1]+t*w[1],(1-t)*v[2]+t*w[2]];};
+/* Law IX: a re-declaration of scale costs nothing and breaks nothing.  The
+   flow carries the space outward by up to the top singular value, so the
+   units are re-declared uniformly as it runs.  A uniform rescale changes no
+   ratio, no angle and no rank; the annihilation is untouched. */
+const units=th=>1/(1+1.9*th);
+/* HOW MUCH OF A POINT IS LEFT, EXACTLY.
+   Split v into the part the map annihilates and the part it keeps:
+       v = v_ker + v_img,     kf = | v_ker | / | v |.
+   Under A(t) the kernel part is multiplied by (1-t) and the image part is
+   only carried, so the surviving fraction of the point is
+       live(v,t) = sqrt( 1 - kf^2 + kf^2 (1-t)^2 ),
+   which is 1 for every point at t = 0, stays 1 forever for a point wholly
+   in the image, and goes to 0 exactly at t = 1 for a point wholly in the
+   kernel.  Nothing is normalised by hand: brightness measures annihilation
+   and only annihilation, and the stretching of the image part - a change of
+   units, Law IX - does not enter it. */
+const liveOf=(kf,th)=>Math.sqrt(Math.max(0,1-kf*kf+kf*kf*(1-th)*(1-th)));
+function detA(t){                                    // exact 3x3, every frame
+  const a=[[1+t*(M[0][0]-1),t*M[0][1],t*M[0][2]],
+           [t*M[1][0],1+t*(M[1][1]-1),t*M[1][2]],
+           [t*M[2][0],t*M[2][1],1+t*(M[2][2]-1)]];
+  return a[0][0]*(a[1][1]*a[2][2]-a[1][2]*a[2][1])
+        -a[0][1]*(a[1][0]*a[2][2]-a[1][2]*a[2][0])
+        +a[0][2]*(a[1][0]*a[2][1]-a[1][1]*a[2][0]);
+}
+const CAND=[[7,0,-2],[-3,0,1],[-2,1,0]];             // unimodular, determinant -1
+const KERV=[-2,1,0];                                 // the one the kernel eats
+(function(){                                         // load-time certificate
+  const want=[[1,0,0],[0,1,1],[0,0,0]];
+  for(let i=0;i<3;i++){const g0=Mv(CAND[i]);
+    for(let j=0;j<3;j++)if(g0[j]!==want[i][j])throw new Error("elimination certificate failed");}
+  if(Math.abs(detA(1))>1e-12)throw new Error("det M must be 0");
+})();
+
+/* ---------------- CIE 1931 2-degree standard observer, 380-700 nm ---------------- */
+const CIE=[
+0.001368,0.000039,0.006450, 0.002236,0.000064,0.010550, 0.004243,0.000120,0.020050,
+0.007650,0.000217,0.036210, 0.014310,0.000396,0.067850, 0.023190,0.000640,0.110200,
+0.043510,0.001210,0.207400, 0.077630,0.002180,0.371300, 0.134380,0.004000,0.645600,
+0.214770,0.007300,1.039050, 0.283900,0.011600,1.385600, 0.328500,0.016840,1.622960,
+0.348280,0.023000,1.747060, 0.348060,0.029800,1.782600, 0.336200,0.038000,1.772110,
+0.318700,0.048000,1.744100, 0.290800,0.060000,1.669200, 0.251100,0.073900,1.528100,
+0.195360,0.090980,1.287640, 0.142100,0.112600,1.041900, 0.095640,0.139020,0.812950,
+0.057950,0.169300,0.616200, 0.032010,0.208020,0.465180, 0.014700,0.258600,0.353300,
+0.004900,0.323000,0.272000, 0.002400,0.407300,0.212300, 0.009300,0.503000,0.158200,
+0.029100,0.608200,0.111700, 0.063270,0.710000,0.078250, 0.109600,0.793200,0.057250,
+0.165500,0.862000,0.042160, 0.225750,0.914850,0.029840, 0.290400,0.954000,0.020300,
+0.359700,0.980300,0.013400, 0.433450,0.994950,0.008750, 0.512050,1.000000,0.005750,
+0.594500,0.995000,0.003900, 0.678400,0.978600,0.002750, 0.762100,0.952000,0.002100,
+0.842500,0.915400,0.001800, 0.916300,0.870000,0.001650, 0.978600,0.816300,0.001400,
+1.026300,0.757000,0.001100, 1.056700,0.694900,0.001000, 1.062200,0.631000,0.000800,
+1.045600,0.566800,0.000600, 1.002600,0.503000,0.000340, 0.938400,0.441200,0.000240,
+0.854450,0.381000,0.000190, 0.751400,0.321000,0.000100, 0.642400,0.265000,0.000050,
+0.541900,0.217000,0.000030, 0.447900,0.175000,0.000020, 0.360800,0.138200,0.000010,
+0.283500,0.107000,0.000000, 0.218700,0.081600,0.000000, 0.164900,0.061000,0.000000,
+0.121200,0.044580,0.000000, 0.087400,0.032000,0.000000, 0.063600,0.023200,0.000000,
+0.046770,0.017000,0.000000, 0.032900,0.011920,0.000000, 0.022700,0.008210,0.000000,
+0.015840,0.005723,0.000000, 0.011359,0.004102,0.000000];
+function wl2rgb(l){
+  if(l>700||l<380)return[0,0,0];                     // outside the band: no light at all
+  const u=(l-380)/5, i=Math.min(63,Math.floor(u)), f=u-i, a=i*3, b=(i+1)*3;
+  const X=CIE[a]+(CIE[b]-CIE[a])*f, Y=CIE[a+1]+(CIE[b+1]-CIE[a+1])*f, Z=CIE[a+2]+(CIE[b+2]-CIE[a+2])*f;
+  let c=[ 3.2406*X-1.5372*Y-0.4986*Z,
+         -0.9689*X+1.8758*Y+0.0415*Z,
+          0.0557*X-0.2040*Y+1.0570*Z].map(v=>v<0?0:v);
+  const m=Math.max(c[0],c[1],c[2])||1;
+  const gg=v=>v<=0.0031308?12.92*v:1.055*Math.pow(v,1/2.4)-0.055;
+  return c.map(v=>Math.round(255*Math.max(0,Math.min(1,gg(v/m)))));
+}
+/* COLOUR IS WAVELENGTH, AND WAVELENGTH IS THE KERNEL FRACTION.
+   Every point of the space carries an exact number: the share of it that
+   lies in the direction the map annihilates,
+       kf(v) = | v . k | / | v |,      k = (-2,1,0)/sqrt5,   kf in [0,1].
+   kf = 0  the point is wholly in the surviving image  ->  700 nm, red
+   kf = 1  the point is wholly in the kernel           ->  400 nm, violet
+   That is fixed: it is a property of the map, so the space is spectral from
+   the first frame, and the violet points are exactly the ones that die.
+   The annihilation is not a change of hue.  It is extinction: under A(t)
+   the kernel component is multiplied by (1-t), so a point's light is
+   carried by | A(t) v | / | v | and a wholly-kernel point's light goes to
+   nothing exactly at t = 1.  Hue says which points are doomed; brightness
+   says how much of them is left. */
+const KHAT=nrm(KERV);
+const lamOf=kf=>700-300*clamp(kf,0,1);
+const NC=96;
+const SPEC=[...Array(NC)].map((_,c)=>wl2rgb(lamOf(c/(NC-1))));
+const binOf=kf=>clamp(Math.round(clamp(kf,0,1)*(NC-1)),0,NC-1);
+
+/* ---------------- the space: Z^3 ---------------- */
+const N=8, SCL=1.0;
+const PT=[],PN=[],PK=[],PKF=[]; let maxR=0;
+for(let x=-N;x<=N;x++)for(let y=-N;y<=N;y++)for(let z=-N;z<=N;z++){
+  const v=[x,y,z], n=Math.hypot(x,y,z);
+  PT.push(v); PN.push(n||1); if(n>maxR)maxR=n;
+  const kf=n?Math.abs(dot(v,KHAT))/n:0;
+  PKF.push(kf); PK.push(binOf(kf));               // its kernel fraction, exact
+}
+const NP=PT.length;
+/* THE UNIVERSAL PICTURE IS THE SAME SPACE, SEEN FROM FURTHER AWAY.
+   Z^3 does not end and it does not change character with distance, so the
+   far field is built as octaves of the same integer lattice: four shells,
+   each ten times the last, each sampled on its own stride.  Whatever the
+   ladder is showing, one octave is at that scale, which is why there is
+   structure at every rung instead of a shrinking ball.  Same kernel
+   fraction, same colour law, same space.  The filaments and the voids are
+   not modelled - they are what a lattice looks like from far away, because
+   light lies along the directions the space has and there is nothing in
+   between. */
+const FT=[],FN=[],FK=[],FKF=[],FO=[];
+[[46,4],[150,13],[480,42],[1500,130]].forEach(([R,st],oct)=>{
+  for(let x=-R;x<=R;x+=st)for(let y=-R;y<=R;y+=st)for(let z=-R;z<=R;z+=st){
+    const q=x*x+y*y+z*z; if(q<R*R*0.10||q>R*R)continue;
+    if((((x/st|0)+(y/st|0)*7+(z/st|0)*13)&3)!==0)continue;
+    const v=[x,y,z], n=Math.sqrt(q);
+    const kf=Math.abs(dot(v,KHAT))/n;
+    FT.push(v);FN.push(n);FKF.push(kf);FK.push(binOf(kf));FO.push(R);
+  }
+});
+const NF=FT.length;
+
+/* ---------------- canvas ---------------- */
+const cv=document.getElementById("f"), g=cv.getContext("2d");
+let W=0,H=0,DPR=1;
+function fit(){DPR=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;
+  cv.width=Math.round(W*DPR);cv.height=Math.round(H*DPR);}
+addEventListener("resize",fit);fit();
+const SPR=new Map();
+function sprite(c){
+  const k=c[0]+","+c[1]+","+c[2]; let s=SPR.get(k); if(s)return s;
+  s=document.createElement("canvas"); s.width=s.height=64;
+  const x=s.getContext("2d"), gr=x.createRadialGradient(32,32,0,32,32,32);
+  gr.addColorStop(0,"rgba("+k+",1)"); gr.addColorStop(.24,"rgba("+k+",.85)");
+  gr.addColorStop(.58,"rgba("+k+",.16)"); gr.addColorStop(1,"rgba("+k+",0)");
+  x.fillStyle=gr; x.fillRect(0,0,64,64); SPR.set(k,s); return s;
+}
+const VIEW=nrm([.80,.40,.23]);
+/* THE SCALE LADDER.  The camera never turns: the direction is fixed for the
+   whole film.  Only the distance changes, and a change of distance is a
+   re-declaration of scale, which by Law IX costs nothing and breaks nothing.
+   One axis, one continuous ladder, run outward to the universal picture and
+   then all the way back in past where it started.
+   The real ladder it stands for, in metres, at the anchors the film holds on:
+     the observable universe   8.8e26   (comoving radius 46.5 Gly)
+     a supercluster filament   3e24
+     a galaxy                  9.5e20   (100,000 ly)
+     a protoplanetary disc     1.5e13   (100 AU)
+     the Earth                 6.371e6  (equatorial radius)
+     a coastline               1e5
+     a person                  1.7
+     the eye                   2.4e-2   (axial length)
+     the pupil                 4e-3
+     a foveal cone             2e-6
+   Thirty-three decades, on one axis.  Below the planet the ladder also
+   re-declares the origin - it slides from the hole to the world and then to
+   the eye - which is the same move as the change of scale and by Law IX
+   costs the same nothing.  The direction never changes at any rung. */
+let RFIX=13;
+function camR(t){
+  if(t<KT.zo0)return 13;                                            // the aeon's own scale
+  if(t<KT.zo1)return 13*Math.pow(70,eio(uu(t,KT.zo0,KT.zo1)));      // out to the universal picture
+  if(t<KT.zi0)return 910;                                           // held there
+  if(t<KT.zi1)return 910*Math.pow(1/70,eio(uu(t,KT.zi0,KT.zi1)));   // back in, through the lock
+  if(t<KT.zd0)return 13;                                            // the attempt happens here
+  if(t<KT.zd1)return 13*Math.pow(4.2/13,eio(uu(t,KT.zd0,KT.zd1)));  // and on down to a world
+  if(t<KT.ez0)return 4.2;
+  if(t<KT.ez1)return 4.2*Math.pow(.155/4.2,eio(uu(t,KT.ez0,KT.ez1)));  // in to the world itself
+  if(t<KT.ey0)return .155;
+  if(t<KT.ey1)return .155*Math.pow(.019/.155,eio(uu(t,KT.ey0,KT.ey1))); // to an eye
+  if(t<KT.cn0)return .019;
+  if(t<KT.cn1)return .019*Math.pow(.0042/.019,eio(uu(t,KT.cn0,KT.cn1))); // into the pupil
+  /* and back up the whole ladder to the scale the aeon runs at, so the cycle
+     closes on the rung it opened on */
+  if(t<KT.up1)return .0042*Math.pow(13/.0042,eio(uu(t,KT.up0,KT.up1)));
+  return 13;
+}
+/* the position the ladder is centred on: the hole, then the world, then the
+   eye.  A change of origin, like a change of scale, changes nothing that is
+   drawn - only which rung of the ladder is in the frame. */
+let ORG=[0,0,0];
+function originAt(t){
+  if(t<KT.ez0)return[0,0,0];
+  const e=earthAt(KT.ez0);                     // the world, with its orbit frozen
+  const u=eio(uu(t,KT.ez0,KT.ez0+16))*(1-eio(uu(t,KT.up0,KT.up1)));
+  return[e[0]*u,e[1]*u,e[2]*u];                // and back to the hole before the wrap
+}
+let CAM=null;
+function makeCam(){
+  const eye=scl(VIEW,RFIX), fwd=nrm(sub([0,0,0],eye));
+  let up=[0,1,0]; const right=nrm(cross(fwd,up)); up=cross(right,fwd);
+  CAM={eye,fwd,right,up,F:Math.min(W,H)*1.16,cx:W/2,cy:H/2};
+}
+function proj(p){
+  const d=sub(sub(scl(p,SCL),ORG),CAM.eye), Z=dot(d,CAM.fwd); if(Z<=.0018)return null;
+  return[CAM.cx+CAM.F*dot(d,CAM.right)/Z, CAM.cy-CAM.F*dot(d,CAM.up)/Z, Z];
+}
+
+/* ---------------- the aeon ---------------- */
+const LOOP=336;
+/* THE OPENING IS THE BIG BANG, AND IT IS THE SAME EVENT AS THE ENDING.
+   The black hole is what there is.  It inevitably tries to add a fourth MUB.
+   That attempt starts the engine - rank-nullity, the only one - and three shoot
+   out of it as white light, and the space that was is brought out behind
+   them, from the origin outward, slowly.  The loop is the aeon: the collapse
+   at the end is the ignition at the beginning. */
+const KT={veil:2.2,
+  ign0:3.4, ign1:9.4,       // the inevitable attempt at a fourth: it flickers
+  span0:8, span1:28,        // the engine turns over: three bases shoot out
+  arr0:10, arr1:48,         // the space is brought out of the black hole
+  zo0:54, zo1:90,           // the ladder runs out: the space is the web
+  zi0:102, zi1:134,         // and back in, to the scale it started at
+  cand0:138, cand1:147,     // the attempt again, with the three it needs
+  flow0:150, flow1:172,     // A(t) runs; det A dies exactly at t = 1
+  eaten:172,                // one is gone.  two stand where three are required
+  zd0:176, zd1:202,         // the ladder keeps going down, past where it began
+  sys0:182, sys1:250,       // a star, and a disc on exact Kepler circles
+  earth0:196, earth1:214,   // the rings clear; the third body settles
+  ez0:220, ez1:248,         // in to the world itself
+  ey0:252, ey1:280,         // to an eye: the instrument all of this was drawn through
+  cn0:276, cn1:296,         // into the pupil, and three responses come out
+  up0:296, up1:314,         // the ladder climbs back to the scale it runs at
+  ret0:312, ret1:324,       // the aeon closes: the space is drawn back in
+  ring0:324, ring1:331,     // the residue rings once
+  pulse0:329, pulse1:336};  // the pulse: redescription, inside the hole, to the wrap
+const PULSE_T=6;              // 336 / 6 = 56 whole breaths in one cycle
+const breath=t=>1+.055*Math.sin(TAU*t/PULSE_T);
+/* Law IV: what has been annihilated is not restored - not anywhere it could
+   be watched.  The flow holds at 1 through the whole return, and only when
+   the space is back inside the hole does the pulse re-declare it.  The
+   restoration happens where there is no light to see it by. */
+function flowT(t){
+  if(t<KT.flow0)return 0;
+  if(t<KT.flow1)return eio(uu(t,KT.flow0,KT.flow1));
+  if(t<KT.pulse0)return 1;
+  return 1-eio(uu(t,KT.pulse0,KT.pulse1));
+}
+
+/* ---------------- the space, drawn ---------------- */
+const JOBS=[...Array(NC*8)].map(()=>[]);
+function space(t,alpha){
+  if(alpha<=0)return;
+  const th=flowT(t), br=breath(t);
+  const dens=clamp(Math.min(W,H)/1000,.5,1);
+  for(const q of JOBS)q.length=0;
+  for(let i=0;i<NP;i++){
+    /* born at the horizon, carried outward to where it belongs.  The order
+       is by radius, so the space unfolds from the origin outward. */
+    const ta=KT.arr0+(PN[i]/maxR)*(KT.arr1-KT.arr0-4.6);
+    const av=uu(t,ta,ta+4.6); if(av<=0)continue;
+    const tr=KT.ret0+(PN[i]/maxR)*(KT.ret1-KT.ret0-4.2);
+    const rv=eio(uu(t,tr,tr+4.2)); if(rv>=1)continue;      // home: inside the hole
+    const outflow=(.035+.965*eio(av))*(1-.965*rv);
+    const w=At(th,PT[i]);
+    const P=proj(scl(w,br*outflow*units(th)));
+    if(!P||P[2]<4)continue;
+    if(P[0]<-30||P[0]>W+30||P[1]<-30||P[1]>H+30)continue;
+    /* extinction: what is left of this point after the flow has run */
+    const live=liveOf(PKF[i],th);
+    const ci=PK[i];
+    const depth=clamp(RFIX/P[2],0,1.7);
+    const rad=clamp((1.25+1.5*th)*depth+.7,.8,5.0);
+    const fog=1-.34*(PN[i]/maxR);
+    let al=(1.25+1.1*th)*fog*depth*alpha*dens*(.35+.65*av)*(1-rv)*(1+1.6*Math.pow(1-av,3)+1.4*Math.pow(rv,3))*Math.pow(live,.72)*(.88+.12*Math.sin(TAU*t/PULSE_T));
+    const dc=Math.hypot(P[0]-CAM.cx,P[1]-CAM.cy);
+    if(dc<15){if(dc<4)continue; al*=(dc-4)/11;}
+    const aq=Math.round(clamp(al,0,1)*7); if(aq<=0)continue;
+    JOBS[ci*8+aq].push(P[0],P[1],rad);
+  }
+  for(let j=0;j<JOBS.length;j++){
+    const q=JOBS[j]; if(!q.length)continue;
+    const sp=sprite(SPEC[(j/8)|0]); g.globalAlpha=(j%8)/7;
+    for(let m=0;m<q.length;m+=3){const s=q[m+2]*5;g.drawImage(sp,q[m]-s/2,q[m+1]-s/2,s,s);}
+  }
+  g.globalAlpha=1;
+}
+
+/* the far field, drawn only once the camera is far enough for it to matter */
+function web(t,alpha){
+  const a=alpha*env(t,KT.zo0+3,KT.zi1-4,6,8);
+  if(a<=0||RFIX<26)return;
+  const th=flowT(t), br=breath(t), u=units(th);
+  const far=clamp((RFIX-40)/300,0,1);
+  for(let i=0;i<NF;i++){
+    const w=At(th,FT[i]);
+    const P=proj(scl(w,br*u));
+    if(!P||P[2]<4)continue;
+    if(P[0]<-20||P[0]>W+20||P[1]<-20||P[1]>H+20)continue;
+    const live=liveOf(FKF[i],th);
+    const col=SPEC[FK[i]];
+    const depth=clamp(RFIX/P[2],0,2.2);
+    const rad=clamp(.9*depth+.5,.6,2.4);
+    /* an octave is drawn only while the ladder is near its own scale */
+    const band=clamp(1-Math.abs(Math.log(FO[i]/(RFIX*1.9))/Math.log(6.0)),0,1);
+    if(band<=0.02)continue;
+    const al=a*far*band*.95*live*depth;
+    if(al<=.02)continue;
+    g.globalAlpha=Math.min(1,al);
+    const sp=sprite(col), sz=rad*5;
+    g.drawImage(sp,P[0]-sz/2,P[1]-sz/2,sz,sz);
+  }
+  g.globalAlpha=1;
+}
+
+/* ---------------- the disc, and the Earth ----------------
+   At the bottom of the ladder the origin is no longer a horizon: it is a
+   star, and what orbits it is debris on exact Kepler circles - angular speed
+   proportional to r^(-3/2), so the inner rings lap the outer ones and the
+   sweeping-up is the real one.  The rings clear into a few bodies, and the
+   third from the centre settles: an ocean world, lit on one limb.  It is not
+   white - white belongs to the bases - it is the colour of an ocean under a
+   star, which is what the pale blue dot actually is. */
+const DISC=[];
+for(let k=0;k<1400;k++){
+  const g1=(k*0.6180339887498949)%1, g2=((k*0.3819660112501051)*7)%1;
+  const r=.55+2.35*Math.sqrt(g1), th0=g2*TAU, tilt=(((k*37)%23)/23-.5)*.28;
+  DISC.push([r,th0,tilt]);
+}
+const U1=nrm([1,-1,0]), U2=nrm(cross(nrm([1,-1,0]),KHAT));
+const EORB=1.9;
+function earthAt(t){
+  const sweep=eio(uu(t,KT.earth0,KT.earth1));
+  const ang=t*0.55*Math.pow(EORB,-1.5)*0.08, rr=EORB*(1-.08*sweep);
+  return[U1[0]*Math.cos(ang)*rr+U2[0]*Math.sin(ang)*rr,
+         U1[1]*Math.cos(ang)*rr+U2[1]*Math.sin(ang)*rr,
+         U1[2]*Math.cos(ang)*rr+U2[2]*Math.sin(ang)*rr];
+}
+function system(t,alpha){
+  const a=alpha*env(t,KT.sys0,KT.sys1,5,6);
+  if(a<=0)return;
+  const sweep=eio(uu(t,KT.earth0,KT.earth1));      // the rings clear
+  for(let i=0;i<DISC.length;i++){
+    const[r,th0,tilt]=DISC[i];
+    const ang=th0+t*0.55*Math.pow(r,-1.5)*0.08;     // Kepler: omega ~ r^-3/2
+    const gone=clamp((sweep-Math.abs(r-1.9)*.55)*2.4,0,1);
+    if(gone>=1)continue;
+    const rr=r*(1-.08*sweep);
+    const p=[U1[0]*Math.cos(ang)*rr+U2[0]*Math.sin(ang)*rr+KHAT[0]*tilt,
+             U1[1]*Math.cos(ang)*rr+U2[1]*Math.sin(ang)*rr+KHAT[1]*tilt,
+             U1[2]*Math.cos(ang)*rr+U2[2]*Math.sin(ang)*rr+KHAT[2]*tilt];
+    const P=proj(p); if(!P||P[2]<.2)continue;
+    const col=SPEC[binOf(clamp(.18+.30*r,0,1))];
+    g.globalAlpha=a*(1-gone)*.75;
+    const sp=sprite(col), sz=4.4;
+    g.drawImage(sp,P[0]-sz/2,P[1]-sz/2,sz,sz);
+  }
+  g.globalAlpha=1;
+  /* the world that comes out of it */
+  const ea=a*eio(uu(t,KT.earth0+3,KT.earth1));
+  if(ea>0){
+    const p=earthAt(Math.min(t,KT.ez0));      // the orbit freezes as the ladder aims at it
+    const P=proj(p);
+    if(P&&P[2]>.2){
+      const R=clamp(CAM.F*0.052/P[2],2,120);
+      const lx=P[0]-R*.42, ly=P[1]-R*.42;
+      const gr=g.createRadialGradient(lx,ly,R*.05,P[0],P[1],R*1.02);
+      gr.addColorStop(0,"rgba(150,205,235,1)");      // cloud-lit limb, not white
+      gr.addColorStop(.34,"rgba(46,120,190,1)");     // ocean
+      gr.addColorStop(.72,"rgba(14,46,86,1)");
+      gr.addColorStop(1,"rgba(3,8,16,1)");           // the night side
+      g.globalAlpha=ea;g.fillStyle=gr;
+      g.beginPath();g.arc(P[0],P[1],R,0,TAU);g.fill();g.globalAlpha=1;
+    }
+  }
+}
+
+/* ---------------- THE EYE ----------------
+   The last rung is the instrument the whole film has been drawn through.
+   Every colour in it came from the CIE 1931 2-degree standard observer, and
+   that observer is a model of the cones of a human fovea.  So the ladder
+   ends on the thing that turned the wavelengths into the light you have been
+   watching.
+   The iris is drawn in the film's own spectrum, on radial fibres.  The pupil
+   is a black disc with a thin ring at its edge - which is the same object the
+   film opened on, because that is what a pupil is: an aperture light goes
+   into and does not come out of.
+   And out of it come three.  Not three of anything new: three responses,
+   x-bar y-bar z-bar, peaking near 600, 555 and 445 nanometres.  Trichromacy.
+   The film's first image and its last image are the same shape, because a
+   basis of three and an observer of three are the same count arrived at
+   twice. */
+const IRIS=[];
+for(let k=0;k<1500;k++){
+  const a0=(k*2.39996323)%TAU, rr=.28+.72*Math.sqrt(((k*0.7548776662)%1));
+  IRIS.push([a0,rr,((k*13)%97)/97]);
+}
+const CONE=[600,555,445];                    // where the three responses peak
+function eye(t,alpha){
+  const a=alpha*env(t,KT.ey0-6,KT.pulse0,7,9);
+  if(a<=0)return;
+  const O=proj(ORG); if(!O)return;      // the eye sits at the origin the ladder now uses
+  const R=CAM.F*.0085/O[2];                  // the eye has a size in the world
+  if(R<3)return;
+  const pupR=R*(.30+.06*Math.sin(TAU*t/PULSE_T));
+  /* the iris, on the film's own spectrum */
+  for(let i=0;i<IRIS.length;i++){
+    const[a0,rr,j]=IRIS[i];
+    const r0=pupR*1.02+(R-pupR)*rr*.22, r1=pupR*1.02+(R-pupR)*(rr*.62+.38);
+    const col=SPEC[binOf(clamp(.34+.44*rr+(j-.5)*.30,0,1))];
+    g.globalAlpha=a*(.14+.5*(1-rr))*(.5+.5*j);
+    g.strokeStyle="rgb("+col[0]+","+col[1]+","+col[2]+")";
+    g.lineWidth=Math.max(.6,R*.012);
+    g.beginPath();
+    g.moveTo(O[0]+Math.cos(a0)*r0,O[1]+Math.sin(a0)*r0);
+    g.lineTo(O[0]+Math.cos(a0)*r1,O[1]+Math.sin(a0)*r1);
+    g.stroke();
+  }
+  g.globalAlpha=1;
+  /* the pupil: the same object the film opened on */
+  const gr=g.createRadialGradient(O[0],O[1],pupR*.55,O[0],O[1],pupR*1.9);
+  gr.addColorStop(0,"rgba(5,5,8,1)");gr.addColorStop(.62,"rgba(5,5,8,.95)");gr.addColorStop(1,"rgba(5,5,8,0)");
+  g.globalAlpha=a;g.fillStyle=gr;g.beginPath();g.arc(O[0],O[1],pupR*1.9,0,TAU);g.fill();
+  g.fillStyle=INK;g.beginPath();g.arc(O[0],O[1],pupR,0,TAU);g.fill();
+  g.globalAlpha=a*.7;g.strokeStyle=GREY;g.lineWidth=1.1;
+  g.beginPath();g.arc(O[0],O[1],pupR,0,TAU);g.stroke();g.globalAlpha=1;
+  /* and three come out of it */
+  const ca=a*env(t,KT.cn0,KT.pulse0,6,7);
+  if(ca>0){
+    const u=eio(uu(t,KT.cn0,KT.cn0+11)), br=breath(t);
+    for(let k=0;k<3;k++){
+      const col=wl2rgb(CONE[k]);
+      const ang=-Math.PI/2+k*TAU/3+t*.012;
+      const L=pupR+ (Math.max(W,H)*.62)*u*br;
+      g.save();g.globalCompositeOperation="lighter";g.lineCap="round";
+      const lg=g.createLinearGradient(O[0],O[1],O[0]+Math.cos(ang)*L,O[1]+Math.sin(ang)*L);
+      const cs="rgba("+col[0]+","+col[1]+","+col[2]+",";
+      lg.addColorStop(0,cs+"0)");lg.addColorStop(.4,cs+".12)");lg.addColorStop(1,cs+".9)");
+      g.strokeStyle=lg;
+      g.globalAlpha=ca*.6;g.lineWidth=R*.055;
+      g.beginPath();g.moveTo(O[0]+Math.cos(ang)*pupR,O[1]+Math.sin(ang)*pupR);
+      g.lineTo(O[0]+Math.cos(ang)*L,O[1]+Math.sin(ang)*L);g.stroke();
+      g.globalAlpha=ca;g.lineWidth=Math.max(1,R*.017);
+      g.beginPath();g.moveTo(O[0]+Math.cos(ang)*pupR,O[1]+Math.sin(ang)*pupR);
+      g.lineTo(O[0]+Math.cos(ang)*L,O[1]+Math.sin(ang)*L);g.stroke();
+      g.restore();g.globalAlpha=1;
+    }
+  }
+}
+
+/* ---------------- the black hole: where the unbiasing is performed ---------------- */
+function blackHole(t,alpha){
+  if(alpha<=0)return;
+  alpha*=Math.max(clamp(1-uu(t,KT.ez0,KT.ez0+14),0,1),clamp(uu(t,KT.up0+4,KT.up1),0,1));
+  if(alpha<=0)return;
+  const O=proj([0,0,0]); if(!O)return;
+  const br=breath(t);
+  /* it swells as the flow drives the volume element to zero (Law II) */
+  const th=flowT(t), dA=Math.abs(detA(th)), d0=Math.abs(detA(0))||1;
+  const swallow=uu(t,KT.ret0,KT.ret1);                    // it is eating the aeon back
+  /* the horizon has a size in the world, not on the screen, so it takes its
+     place on the ladder like everything else: sub-pixel at the top of the
+     climb, and the thing the disc orbits at the bottom */
+  const O0=proj([0,0,0]);
+  const shW=.135*(1+1.45*(1-Math.pow(dA/d0,.34))+1.8*eio(swallow)*(1-uu(t,KT.pulse0,KT.pulse1)));
+  const sh=Math.max(1.2,CAM.F*shW/(O0?O0[2]:RFIX))*br;
+  const gr=g.createRadialGradient(O[0],O[1],sh*.5,O[0],O[1],sh*2.4);
+  gr.addColorStop(0,"rgba(5,5,8,1)");gr.addColorStop(.6,"rgba(5,5,8,.94)");gr.addColorStop(1,"rgba(5,5,8,0)");
+  g.globalAlpha=alpha;g.fillStyle=gr;g.beginPath();g.arc(O[0],O[1],sh*2.4,0,TAU);g.fill();
+  g.fillStyle=INK;g.beginPath();g.arc(O[0],O[1],sh,0,TAU);g.fill();
+  g.globalAlpha=alpha*.75;g.strokeStyle=GREY;g.lineWidth=1.1;
+  g.beginPath();g.arc(O[0],O[1],sh,0,TAU);g.stroke();g.globalAlpha=1;
+  /* the residue rings once (Law IV), then the pulse (Law IX) */
+  const rg=uu(t,KT.ring0,KT.ring1);
+  if(rg>0&&rg<1){
+    g.globalAlpha=alpha*(1-rg)*.75;g.strokeStyle=GREY;g.lineWidth=1.5;
+    g.beginPath();g.arc(O[0],O[1],sh+eo3(rg)*Math.min(W,H)*.42,0,TAU);g.stroke();g.globalAlpha=1;
+  }
+  const pl=uu(t,KT.pulse0,KT.pulse0+2.2);
+  if(pl>0&&pl<1){
+    g.globalAlpha=alpha*(1-pl)*.6;g.strokeStyle=GREY;g.lineWidth=1.3;
+    g.beginPath();g.arc(O[0],O[1],sh+eo3(pl)*Math.min(W,H)*.55,0,TAU);g.stroke();g.globalAlpha=1;
+  }
+}
+
+/* ---------------- white light: the three that exist, and the one that cannot ---------------- */
+function ray(dir,len,wide,a,soft){
+  if(a<=0)return;
+  const A=proj([0,0,0]), B=proj(scl(dir,len));
+  if(!A||!B)return;
+  g.strokeStyle=WHITE;g.lineCap="round";
+  if(soft){g.globalAlpha=a*.06;g.lineWidth=wide*5.5;g.beginPath();g.moveTo(A[0],A[1]);g.lineTo(B[0],B[1]);g.stroke();}
+  g.globalAlpha=a*.20;g.lineWidth=wide*2.2;g.beginPath();g.moveTo(A[0],A[1]);g.lineTo(B[0],B[1]);g.stroke();
+  g.globalAlpha=a*.92;g.lineWidth=wide;g.beginPath();g.moveTo(A[0],A[1]);g.lineTo(B[0],B[1]);g.stroke();
+  g.globalAlpha=1;
+}
+/* The three that exist radiate OUT of the black hole.  They are not lines
+   and they are not the coordinate axes: they are directed emissions, one
+   way, from the origin outward, each with a bright front and light running
+   along it.  Their directions are three of the four tetrahedral vertices,
+   mutually at 109.47 degrees - maximally spread, spanning, and aligned with
+   nothing.  The fourth vertex is where a fourth would have to go. */
+const BEAM=[nrm([1,1,1]),nrm([1,-1,-1]),nrm([-1,1,-1])];
+const BEAM4=nrm([-1,-1,1]);
+function emit(dir,len,a,t,seed,wide){
+  if(a<=0||len<=0.05)return;
+  const A=proj([0,0,0]), B=proj(scl(dir,len));
+  if(!A||!B)return;
+  g.save();g.globalCompositeOperation="lighter";g.lineCap="round";
+  /* the shaft is dark at the source and bright at the front: that is the
+     direction, drawn */
+  const gr=g.createLinearGradient(A[0],A[1],B[0],B[1]);
+  gr.addColorStop(0,"rgba(255,255,255,0)");
+  gr.addColorStop(.35,"rgba(255,255,255,.10)");
+  gr.addColorStop(1,"rgba(255,255,255,.85)");
+  g.strokeStyle=gr;
+  g.globalAlpha=a*.55;g.lineWidth=wide*3.2;
+  g.beginPath();g.moveTo(A[0],A[1]);g.lineTo(B[0],B[1]);g.stroke();
+  g.globalAlpha=a;g.lineWidth=wide;
+  g.beginPath();g.moveTo(A[0],A[1]);g.lineTo(B[0],B[1]);g.stroke();
+  /* the front */
+  const hg=g.createRadialGradient(B[0],B[1],0,B[0],B[1],wide*7);
+  hg.addColorStop(0,"rgba(255,255,255,1)");hg.addColorStop(.3,"rgba(255,255,255,.5)");
+  hg.addColorStop(1,"rgba(255,255,255,0)");
+  g.globalAlpha=a;g.fillStyle=hg;g.beginPath();g.arc(B[0],B[1],wide*7,0,TAU);g.fill();
+  /* light running outward along it */
+  for(let k=0;k<3;k++){
+    const u=((t*.19+k/3+seed)%1);
+    const P=proj(scl(dir,len*u));
+    if(!P)continue;
+    const pg=g.createRadialGradient(P[0],P[1],0,P[0],P[1],wide*4);
+    pg.addColorStop(0,"rgba(255,255,255,"+(.85*(1-Math.abs(u-.5)*.7)).toFixed(3)+")");
+    pg.addColorStop(1,"rgba(255,255,255,0)");
+    g.globalAlpha=a*.9;g.fillStyle=pg;g.beginPath();g.arc(P[0],P[1],wide*4,0,TAU);g.fill();
+  }
+  g.restore();g.globalAlpha=1;
+}
+/* the inevitable attempt that starts it: a fourth tries to rise out of the
+   hole, flickers, and fails - and the engine lights */
+function ignition(t,alpha){
+  const a=alpha*env(t,KT.ign0,KT.ign1,.5,1.2);
+  if(a<=0)return;
+  const u=uu(t,KT.ign0,KT.ign1);
+  const rise=Math.sin(Math.PI*Math.pow(u,.5));
+  const flick=.45+.55*Math.sin(u*61)*Math.pow(1-u,.3);
+  emit(BEAM4,3.6*rise,a*rise*Math.max(0,flick),t,.5,.85);
+}
+function mubs(t,alpha){
+  const a=alpha*env(t,KT.span0,KT.pulse1+2,1.2,2.4);
+  if(a<=0)return;
+  const br=breath(t);
+  /* one engine, one event: all three leave together, at the same magnitude,
+     in three directions that span.  Nothing distinguishes them but direction. */
+  const u=eio(uu(t,KT.span0,KT.span0+6.0)); if(u<=0)return;
+  const home=1-eio(uu(t,KT.ret0+3.4,KT.ret1+.8)); if(home<=0)return;
+  const len=7.6*u*br*home;
+  /* the bases are drawn at the scale they were made at: as the ladder runs
+     out past the aeon they go with it, and they are back when it returns */
+  const onScale=clamp((60-RFIX)/26,0,1)*clamp((RFIX-1.6)/3,0,1);
+  if(onScale<=0)return;
+  for(let k=0;k<3;k++)emit(BEAM[k],len,a*onScale,t,0,1.15);
+}
+/* the fourth attempt: three candidate directions are put out; the flow
+   carries them to their images; two arrive and stand, and the third is
+   eaten - it slides into the black hole and its light goes out. */
+function attempt(t,alpha){
+  const a=alpha*env(t,KT.cand0,KT.pulse0+1.5,1.2,2.2);
+  if(a<=0)return;
+  const th=flowT(t), br=breath(t);
+  for(let i=0;i<3;i++){
+    const u=eio(uu(t,KT.cand0+i*1.5,KT.cand0+i*1.5+2.4)); if(u<=0)continue;
+    const w=At(th,CAND[i]);
+    const L=Math.hypot(w[0],w[1],w[2]);
+    if(L<1e-9)continue;                              // eaten: nothing left to draw
+    const L0=Math.hypot(CAND[i][0],CAND[i][1],CAND[i][2]);
+    const lim=Math.min(4.4*L/L0/(1+1.9*th)*2.6,6.6), dead=clamp(L/L0,0,1);
+    emit(nrm(w),lim*u*br,a*(i===2?dead*dead:1)*.85,t,i/3+.17,.95);
+  }
+}
+
+/* ---------------- render ---------------- */
+function render(t){
+  g.setTransform(DPR,0,0,DPR,0,0);
+  g.fillStyle=INK;g.fillRect(0,0,W,H);
+  RFIX=camR(t); ORG=originAt(t);
+  makeCam();
+  const master=1;
+  web(t,master);
+  space(t,master);
+  system(t,master);
+  eye(t,master);
+  blackHole(t,master);
+  const gr=g.createRadialGradient(W/2,H*.47,Math.min(W,H)*.44,W/2,H*.5,Math.max(W,H)*.85);
+  gr.addColorStop(0,"rgba(5,5,8,0)");gr.addColorStop(1,"rgba(5,5,8,0.80)");
+  g.fillStyle=gr;g.fillRect(0,0,W,H);
+  ignition(t,master);
+  mubs(t,master);
+  attempt(t,master);
+  /* no veil and no global fade: the frame at t = LOOP is the frame at t = 0,
+     so there is nothing to cut between.  One cycle. */
+}
+
+/* ---------------- clock ---------------- */
+let paused=false, acc=0, prev=performance.now(), seek=0;
+const hm=location.hash.match(/t=([\d.]+)/); if(hm)seek=parseFloat(hm[1])%LOOP;
+if(/[#&]p(&|$)/.test(location.hash))paused=true;
+const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const ANCHORS=[6,14,26,40,58,76,94,112,130,148,166,184,200,214,232,250,266,284,300,316];
+let anchorI=8;
+if(reduced){paused=true;seek=52;}
+addEventListener("pointerdown",()=>{ if(reduced){anchorI=(anchorI+1)%ANCHORS.length;seek=ANCHORS[anchorI];render(seek);} else paused=!paused; });
+addEventListener("keydown",e=>{ if(e.code==="Space"){paused=!paused;e.preventDefault();} });
+function frame(now){
+  if(!paused)acc+=Math.min(now-prev,50);
+  prev=now;
+  render((acc/1000+seek)%LOOP);
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
